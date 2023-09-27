@@ -8,8 +8,8 @@
     <title>Donghvani</title>
     <script type="text/javascript">
       function recaptcha_callback() {
-        const submitButton = document.getElementById("submit-button");
-        submitButton.removeAttribute("disabled");
+        const submitButton = document.getElementById("questionnaireForm");
+      submitButton.removeAttribute("disabled");
       }
     </script>
   </head>
@@ -17,11 +17,10 @@
     <form action="?" method="POST">
       <div class="g-recaptcha" data-callback="recaptcha_callback" data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX"></div>
       <br/>
-      <input id="submit-button" type="submit" value="Submit" disabled>
     </form>
 
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScBKwDj-wp1sptwiZJIXRMcD2a7mByDG8An3KlFtReLinJnEw/viewform?embedded=true" width="640" height="1299" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+<iframe id="questionnaireForm" src="https://docs.google.com/forms/d/e/1FAIpQLScBKwDj-wp1sptwiZJIXRMcD2a7mByDG8An3KlFtReLinJnEw/viewform?embedded=true" width="640" height="1299" frameborder="0" marginheight="0" marginwidth="0" disabled>Loading…</iframe>
 
   </body>
 </html>
