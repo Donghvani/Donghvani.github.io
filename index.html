@@ -7,9 +7,10 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Donghvani</title>
     <script type="text/javascript">
-      function recaptcha_callback() {
-        const submitButton = document.getElementById("submit-button");
-        submitButton.removeAttribute("disabled");
+      function recaptcha_callback() {      
+        const submitButton = document.getElementById("questionnaireForm");
+        submitButton.removeAttribute("hidden");
+        document.getElementById("captchaDiv").style.visibility="visibility:hidden";
       }
 
       function recaptchaExpiryHeader(){
@@ -18,14 +19,28 @@
     </script>
   </head>
     <body>
-    <form action="?" method="POST">
-      <div 
-        class="g-recaptcha" 
-        data-callback="recaptcha_callback" 
-        data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX"
-        data-expired-callback="recaptchaExpiryHeader"></div>
-      <br/>
-      <input id="submit-button" type="submit" value="Submit" disabled>
-    </form>
+      <div id="captchaDiv">
+          <form action="?" method="POST">
+            <div 
+              class="g-recaptcha" 
+              data-callback="recaptcha_callback" 
+              data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX"
+              data-expired-callback="recaptchaExpiryHeader">
+            </div>
+            <br/>
+          </form>
+      </div>
+
+      <div id="questionnaireForm" hidden>
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLScBKwDj-wp1sptwiZJIXRMcD2a7mByDG8An3KlFtReLinJnEw/viewform?embedded=true" 
+          width="640" 
+          height="1299" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0">
+          Loading…
+        </iframe>
+      </div>
   </body>
 </html>
