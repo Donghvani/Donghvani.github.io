@@ -10,14 +10,17 @@
       function recaptcha_callback() {
         const submitButton = document.getElementById("questionnaireForm");
       submitButton.removeAttribute("hidden");
-      }
+document.getElementById("captchaDiv").style.visibility="visibility:hidden";
+}
     </script>
   </head>
     <body>
+<div id="captchaDiv>
     <form action="?" method="POST">
       <div class="g-recaptcha" data-callback="recaptcha_callback" data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX"></div>
       <br/>
     </form>
+</div>
 
 <div id="questionnaireForm" hidden>
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScBKwDj-wp1sptwiZJIXRMcD2a7mByDG8An3KlFtReLinJnEw/viewform?embedded=true" width="640" height="1299" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
