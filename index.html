@@ -10,7 +10,7 @@
       function recaptcha_callback() {      
         const submitButton = document.getElementById("questionnaireForm");
         submitButton.removeAttribute("hidden");
-        document.getElementById("captchaDiv").style.visibility="visibility:hidden";
+        document.getElementById("captchaDiv").style.display = "none";
       }
 
       function recaptchaExpiryHeader(){
@@ -19,7 +19,7 @@
     </script>
   </head>
     <body>
-      <div id="captchaDiv">
+      <div id="captchaDiv" style="display: block;">
           <form action="?" method="POST">
             <div 
               class="g-recaptcha" 
