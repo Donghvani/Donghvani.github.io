@@ -11,11 +11,19 @@
         const submitButton = document.getElementById("submit-button");
         submitButton.removeAttribute("disabled");
       }
+
+      function recaptchaExpiryHeader(){
+          alert('You should check captcah again as it is expired');
+      } 
     </script>
   </head>
     <body>
     <form action="?" method="POST">
-      <div class="g-recaptcha" data-callback="recaptcha_callback" data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX"></div>
+      <div 
+        class="g-recaptcha" 
+        data-callback="recaptcha_callback" 
+        data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX"
+        data-expired-callback="recaptchaExpiryHeader"></div>
       <br/>
       <input id="submit-button" type="submit" value="Submit" disabled>
     </form>
