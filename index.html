@@ -4,12 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <title>Donghvani</title>
+    <script type="text/javascript">
+      function callback() {
+        const submitButton = document.getElementById("submit-button");
+        submitButton.removeAttribute("disabled");
+      }
+    </script>
   </head>
   <body>
     <main>
         <h1>Welcome Dev</h1>  
         <p>You made it!</p>
     </main>
+    <form action="https://submit-form.com/you-form-id" method="POST">
+      <div
+        class="g-recaptcha"
+        data-sitekey="6LeH0lcoAAAAAETDQKwK4EqtMY2rOjKjhWA-jKIy"
+        data-callback="callback"
+      ></div>
+      <br />
+      <button id="submit-button" type="submit" disabled>Submit</button>
+    </form>
   </body>
 </html>
