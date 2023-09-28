@@ -21,7 +21,7 @@
     </script>
   </head>
     <body>
-      <div id="captchaDiv" style="display: none;" class="center-screen">
+      <div id="captchaDiv" style="display: block;" class="center-screen">
           <form action="?" method="POST">
             <div 
               class="g-recaptcha" 
@@ -32,20 +32,21 @@
             <br/>
           </form>
       </div>
-
-      <div class="g-recaptcha" data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX" data-size="invisible">
-        <div id="questionnaireForm" style="display: block;">
-          <iframe 
-            src="https://docs.google.com/forms/d/e/1FAIpQLScBKwDj-wp1sptwiZJIXRMcD2a7mByDG8An3KlFtReLinJnEw/viewform?embedded=true" 
-            width="840" 
-            height="1299" 
-            frameborder="0" 
-            marginheight="0" 
-            marginwidth="0">
-            Loading…
-          </iframe>
-        </div>
+      
+      <div id="questionnaireForm" style="display: none;">
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLScBKwDj-wp1sptwiZJIXRMcD2a7mByDG8An3KlFtReLinJnEw/viewform?embedded=true" 
+          width="840" 
+          height="1299" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0">
+          Loading…
+        </iframe>
       </div>
-    <div>All rights reserved ®</div>
+
+    <div class="center-screen">
+      <p><small>® All rights reserved.</small></p>      
+    </div>
   </body>
 </html>
