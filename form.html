@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/form.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <title>Donghvani</title>
+    <script type="text/javascript">
+      function recaptcha_callback() {      
+        const questionnaireForm = document.getElementById("questionnaireForm");
+        questionnaireForm.style.display = "block";
+        //submitButton.removeAttribute("hidden");
+        document.getElementById("captchaDiv").style.display = "none";
+      }
+
+      function recaptchaExpiryHeader(){
+          console.log('You should check captcah again as it is expired');
+      } 
+    </script>
+  </head>
+    <body>
+      <div id="captchaDiv" style="display: block;" class="center-screen">
+          <form action="?" method="POST">
+            <div 
+              class="g-recaptcha" 
+              data-callback="recaptcha_callback" 
+              data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX"
+              data-expired-callback="recaptchaExpiryHeader">
+            </div>
+            <br/>
+          </form>
+      </div>
+      
+      <div id="questionnaireForm" style="display: none;">
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLScBKwDj-wp1sptwiZJIXRMcD2a7mByDG8An3KlFtReLinJnEw/viewform?embedded=true" 
+          width="840" 
+          height="1320" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0">
+          Loading…
+        </iframe>
+      </div>
+
+    <div class="center-screen">
+      <p><small>® All rights reserved.</small></p>      
+    </div>
+  </body>
+</html>
