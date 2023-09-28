@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
    <head>
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
       <meta charset="utf-8">
       <title>Donghvani</title>
       <link rel="stylesheet" href="css/index.css">
+      <script type="text/javascript">
+         function recaptcha_callback() {      
+           const questionnaireForm = document.getElementById("submitDiv");
+           questionnaireForm.style.display = "block";           
+           document.getElementById("captchaDiv").remove(); //.style.display = "none";
+           document.getElementById("brSpace").remove();
+         }
+       </script>
    </head>
    <body>
       <div class="container">
          <div class="header">
             Login
          </div>
-         <form action="#">
+         <form action="#">            
             <div class="entry">
                <input type="text" required>
                <label>Username</label>
@@ -18,14 +27,21 @@
             <div class="entry">
                <input type="password" required>
                <label>Password</label>
+            </div>    
+            <div id="brSpace">
+               <br/><br/>
             </div>
-            <div class="content">
-               <div class="checkbox">
-                  <input type="checkbox" id="remember-me">
-                  <label for="remember-me">Remember me</label>
+                       
+            <div id="captchaDiv" class="content">                              
+               <div
+                  class="g-recaptcha" 
+                  data-callback="recaptcha_callback" 
+                  data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX">
                </div>
             </div>
-            <div class="entry">
+            <!-- რას უყურებ შეჩემა? -->    
+            <br/>     
+            <div class="entry" id="submitDiv" style="display: none;">
                <input type="submit" value="Login">
             </div>
          </form>
