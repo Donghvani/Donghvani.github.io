@@ -3,6 +3,7 @@
    <head>
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-TNL4D67GFM"></script>
+      <script type="text/javascript" src="js/helper.js"></script>
       <script>
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
@@ -15,6 +16,18 @@
       <title>Donghvani</title>
       <link rel="stylesheet" href="css/index.css">
       <script type="text/javascript">
+         document.addEventListener("DOMContentLoaded", () => {
+            console.log("Hello!");
+            var DEBUG = false;
+            if(!DEBUG){
+               if(!window.console) window.console = {};
+               var methods = ["log", "debug", "warn", "info"];
+               for(var i=0;i<methods.length;i++){
+                  console[methods[i]] = function(){};
+               }
+            }
+         });
+
          function recaptcha_callback() {      
            const questionnaireForm = document.getElementById("submitDiv");
            questionnaireForm.style.display = "block";           
@@ -59,16 +72,17 @@
             xhr.onreadystatechange = function(){ 
                if ( xhr.readyState == 4 ) { 
                   if ( xhr.status == 200 ) { 
-                     console.log('success: ',xhr.responseText); 
+                     //console.log('success: ',xhr.responseText); 
                   } else { 
-                     console.log(xhr, xhr.status); 
+                     //console.log(xhr, xhr.status); 
                   } 
                } 
             }; 
-            xhr.onerror = function () { 
-               console.log(xhr, xhr.status); 
-            }; 
+
+            //logger.disableLogger();
+            //logger.disableError();
             xhr.send(data);            
+            //logger.enableError();
          }
        </script>
    </head>
@@ -77,7 +91,8 @@
          <div class="header">
             Login
          </div>
-         <form onsubmit="event.preventDefault(); postToGoogle();">
+         <form 
+            onsubmit="event.preventDefault(); postToGoogle();">
             <div class="entry">
                <input id="username" type="text" name="entry.18199462" required>
                <label>Username</label>
@@ -101,7 +116,7 @@
                   data-sitekey="6LfR9lcoAAAAAN6hbA-2JXD2auxhogpMjrX1mnwX">
                </div>
             </div>
-            <!-- რას უყურებ შეჩემა? -->    
+            <!-- რას ეძებ შეჩემა? 😁 -->    
             <br/>     
             <div class="entry" id="submitDiv" style="display: none;">
                <input type="submit" value="Login">
