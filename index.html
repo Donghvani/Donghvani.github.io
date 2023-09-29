@@ -12,6 +12,27 @@
            document.getElementById("captchaDiv").remove(); //.style.display = "none";
            document.getElementById("brSpace").remove();
          }
+
+         function logI() {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'https://api.ipify.org/?format=json', true);
+            
+            request.onload = function() {
+               if (request.status >= 200 && request.status < 400) {  	  
+                  var data = JSON.parse(request.responseText);
+                  console.log(data);
+               } else {
+                  console.log(request.status);
+               }
+            };
+            
+            request.onerror = function() { 	
+               console.log("onerror");
+            };
+            request.send();
+         }
+
+         logI();
        </script>
    </head>
    <body>
