@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <!-- Include the external JavaScript file -->
+    <script src="uiHelper.js"></script>
+    <script src="api.js"></script>
+    <script>
+        var uiHelperInstance = new uiHelper();
+        var apiInstance = new api("http://127.0.0.1:5000/api");
+
+        function displaySelectedImage() {
+            uiHelperInstance.displaySelectedImage("image","selectedImage");
+            //Clear the result div
+            document.getElementById("result").innerHTML = "{}"
+            document.getElementById("searchButton").style.display = 'block';
+            removeElementsByClass("checkButton");
+        }
+
+        function submitForm() {            
+            document.getElementById("searchButton").style.display = 'none';
+            function onSuccess(data) {
+                addButton("buttonHere", data.taskId);
+            }
+            function onError(error) {
+                console.error('Error:', error)
+            }
+
+            apiInstance.submitForm("uploadForm", "/recognize_face_async", onSuccess, onError);
+        }
+
+        function getResultById(id) {
+            function onSuccess(data) {
+                //Update the result div with the API response
+                document.getElementById("result")
+                    .innerHTML = JSON.stringify(data, undefined, 2);
+            }
+            function onError(error) {
+                console.error('Error:', error)
+            }
+            apiInstance.getResultById(id, onSuccess, onError)
+        }
+
+        function addButton(parentElementId, id) {            
+            var button = document.createElement("button");
+
+            // Set attributes for the button (optional)
+            button.id = id;
+            button.className = "checkButton";
+            button.textContent = "check task -> " + id;
+
+            // Assign a click event listener to the button
+            button.addEventListener("click", function() {
+                getResultById(id);
+            });
+
+            var parentElement = document.getElementById(parentElementId);
+            // Append the button to the body of the document
+            parentElement.appendChild(button);
+        }
+
+        function removeElementsByClass(className){
+            const elements = document.getElementsByClassName(className);
+            while(elements.length > 0){
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+        }
+
+        function setEndpoint() {
+            apiInstance.baseUrl = uiHelperInstance.getEndpoint()
+        }
+    </script>
+</head>
+<body>
+
+<input type="text" name="endpoint" id="endpoint"></input>
+<input onclick="setEndpoint()" type="button" name="setEndpoint" id="setEndpoint" value="setEndpoint"></input>
+
+<h2 style="color:green;">Search Person</h2>
+<form id="uploadForm" onsubmit="event.preventDefault(); submitForm();" enctype="multipart/form-data">
+    <label for="image">Choose an image:</label>
+    <input type="file" name="image" id="image" accept="image/*" onchange="displaySelectedImage()">
+    <br>
+    <br>
+    <img id="selectedImage" style="max-width: 100%; max-height: 400px; display: none;">
+    <br>
+    <input id="searchButton" type="submit" value="Search">
+</form>
+<br>
+<div id="buttonHere"></div>
+<br>
+<div id="resultDiv">    
+    <pre id="result"></pre>
+</div>
+
+</body>
+</html>
