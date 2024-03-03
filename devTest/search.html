@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
+    <style>
+        #uploadForm {
+          position: relative;
+          display: inline-block;
+        }
+    
+        .rectangle {
+          position: absolute;
+          border: 2px solid red;
+          pointer-events: none;
+        }
+
+        .facetitle {
+          position: absolute;
+          pointer-events: none;
+        }
+      </style>
     <!-- Include the external JavaScript file -->
     <script src="uiHelper.js"></script>
     <script src="api.js"></script>
@@ -12,17 +29,18 @@
         var apiInstance = new api("http://127.0.0.1:5000/api");
 
         function displaySelectedImage() {
-            uiHelperInstance.displaySelectedImage("image","selectedImage");
+            uiHelperInstance.displaySelectedImage("image", "selectedImage");
             //Clear the result div
             document.getElementById("result").innerHTML = "{}"
-            document.getElementById("searchButton").style.display = 'block';
+            document.getElementById("searchButton").style.display = 'block';            
             removeElementsByClass("checkButton");
+            removeElementsByClass("rect");
         }
 
         function submitForm() {            
             document.getElementById("searchButton").style.display = 'none';
             function onSuccess(data) {
-                addButton("buttonHere", data.taskId);
+                addButton("buttonHere", data.taskId);                
             }
             function onError(error) {
                 console.error('Error:', error)
@@ -36,10 +54,19 @@
                 //Update the result div with the API response
                 document.getElementById("result")
                     .innerHTML = JSON.stringify(data, undefined, 2);
+                
+                if(data.value==null) return;
+                
+                var index = 0;
+                for (const dataValue of data.value) {                    
+                    createRect('face_' + index, dataValue);
+                    index++;
+                } 
             }
             function onError(error) {
                 console.error('Error:', error)
             }
+            removeElementsByClass("rect");
             apiInstance.getResultById(id, onSuccess, onError)
         }
 
@@ -71,6 +98,18 @@
         function setEndpoint() {
             apiInstance.baseUrl = uiHelperInstance.getEndpoint()
         }
+
+        function createRect(id, dataValue) {
+            boundingBox = dataValue.bounding_box;                      
+            var width = boundingBox.right - boundingBox.left;
+            var height = boundingBox.bottom - boundingBox.top;
+            var title = dataValue.name + ' ' + dataValue.percentage + '%';
+            uiHelperInstance.createRectangle(         
+                'uploadForm',
+                id, 
+                boundingBox.left, boundingBox.top, 
+                width, height, title);          
+        }
     </script>
 </head>
 <body>
@@ -85,6 +124,7 @@
     <br>
     <br>
     <img id="selectedImage" style="max-width: 100%; max-height: 400px; display: none;">
+    <!-- <img id="selectedImage" style="display: none;">         -->
     <br>
     <input id="searchButton" type="submit" value="Search">
 </form>

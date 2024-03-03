@@ -5,32 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Known Person</title>
     <!-- Include the external JavaScript file -->
+    <script src="basic.js"></script>
     <script src="uiHelper.js"></script>
     <script src="api.js"></script>
-    <script>
-        var uiHelperInstance = new uiHelper();
-        var apiInstance = new api("http://127.0.0.1:5000/api");
-
-        function displaySelectedImage() {
-            uiHelperInstance.displaySelectedImage("image","selectedImage");
-            
-        }
-
-        function submitForm() {
-            function onSuccess(data) {
-                console.log(data);
-            }
-            function onError(error) {
-                console.error('Error:', error)
-            }
-
-            apiInstance.submitForm("uploadForm", "/known_face", onSuccess, onError);
-        }
-
-        function setEndpoint() {
-            apiInstance.baseUrl = uiHelperInstance.getEndpoint()
-        }
-    </script>
+    <script src="add.js"></script>
 </head>
 <body>
 
@@ -38,21 +16,50 @@
 <input onclick="setEndpoint()" type="button" name="setEndpoint" id="setEndpoint" value="setEndpoint"></input>
 
 <h2 style="color:Tomato;">Add Known Person</h2>
-<form id="uploadForm" onsubmit="event.preventDefault(); submitForm();" enctype="multipart/form-data">
-    <label for="image">Choose an image:</label>
-    <input type="file" name="image" id="image" accept="image/*" onchange="displaySelectedImage()">
-    <label for="label">Label</label>
-    <input type="text" name="label" id="label">
-    <br>
-    <br>
-    <img id="selectedImage" style="max-width: 100%; max-height: 400px; display: none;">
-    <br>
-    <input type="submit" value="Add">
+<form id="uploadForm" onsubmit="event.preventDefault(); submitKnownPerson();" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Add Known Person:</legend>
+        <label for="image">Choose an image:</label>
+        <input type="file" name="image" id="image" accept="image/*" onchange="displaySelectedImage()">
+        <label for="label">Label:</label>
+        <input type="text" name="label" id="label">
+        <label for="person_id">Id:</label>
+        <input type="text" name="person_id" id="person_id">
+        <br>
+        <br>
+        <img id="selectedImage" style="max-width: 100%; max-height: 400px; display: none;">
+        <br>
+        <input type="submit" value="Add">
+    </fieldset>
 </form>
 <br>
 <div id="resultDiv">    
     <pre id="result"></pre>
 </div>
+
+<form id="personDetailsForm" style="display:none;" onsubmit="event.preventDefault(); submitPersonDetails();" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Mode Details:</legend>
+        <label for="person_id">Person Id:</label>
+        <input type="text" name="person_id" id="person_id">
+        <br><br>
+        <label for="full_name">Full Name:</label>
+        <input type="text" name="full_name" id="full_name">
+        <br><br>
+        <label for="url">Info Url:</label>
+        <input type="text" name="url" id="url">
+        <br><br>
+        <label for="type">Type:</label>
+        <select name="type" id="type">
+          <option value="0">Ordinary</option>
+          <option value="1">Missing</option>
+          <option value="2">Wanted</option>
+          <option value="3">Dangerous</option>
+        </select>        
+        <br><br>
+        <input type="submit" value="Add">
+    </fieldset>
+</form>
 
 </body>
 </html>
