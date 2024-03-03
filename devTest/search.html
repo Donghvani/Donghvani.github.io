@@ -25,8 +25,9 @@
     <script src="uiHelper.js"></script>
     <script src="api.js"></script>
     <script>
+        var currentEndpoint = "http://127.0.0.1:5000/api";
         var uiHelperInstance = new uiHelper();
-        var apiInstance = new api("http://127.0.0.1:5000/api");
+        var apiInstance = new api(currentEndpoint);
 
         function displaySelectedImage() {
             uiHelperInstance.displaySelectedImage("image", "selectedImage");
@@ -96,7 +97,14 @@
         }
 
         function setEndpoint() {
-            apiInstance.baseUrl = uiHelperInstance.getEndpoint()
+            var newEndpoint = uiHelperInstance.getEndpoint();
+            if(newEndpoint == null ) {
+                alert('Invalid endpoint!')
+            } else {
+                apiInstance.baseUrl = newEndpoint;
+                alert('new endpoint set: ' + newEndpoint);
+                document.getElementById('endpointUrl').innerHTML = newEndpoint;
+            }
         }
 
         function createRect(id, dataValue) {
@@ -116,6 +124,8 @@
 
 <input type="text" name="endpoint" id="endpoint"></input>
 <input onclick="setEndpoint()" type="button" name="setEndpoint" id="setEndpoint" value="setEndpoint"></input>
+<br>
+<span id="endpointUrl" style="color: tomato;"></span>
 
 <h2 style="color:green;">Search Person</h2>
 <form id="uploadForm" onsubmit="event.preventDefault(); submitForm();" enctype="multipart/form-data">
